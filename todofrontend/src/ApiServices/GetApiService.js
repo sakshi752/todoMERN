@@ -20,4 +20,4 @@ export const getData = async (endpoint, headers = {}) => {
     } catch (error) {
         console.error("Internal server error");
     }
-}
+}  

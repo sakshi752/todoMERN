@@ -6,7 +6,7 @@ import { authMiddleware } from './middlewares/authMiddleware.js';
 const app = express();
 app.use(express.json());
 
-app.use("/api/todos", authRoutes);
+app.use("/api/user", authRoutes);
 app.use("/api/todos", authMiddleware, todoRoutes);
 
 export default app;
