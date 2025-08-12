@@ -7,6 +7,8 @@ export const registerUserService = async (requestBody) => {
     try {
         const response = await postService(`${ENDPOINTS.USER + ENDPOINTS.REGISTER}`,requestBody) 
     } catch (error) {
+        console.log("error2",error);
+        
         toast.error(error.message ? error.message : "Something went wrong")
     }
 };

@@ -3,20 +3,24 @@ import LoginPage from "./Pages/LoginPage/LoginPage";
 import HomePage from "./Pages/HomePage/HomePage";
 import Layout from "./Components/Layout";
 import React from 'react';
+import { ToastContainer } from "react-toastify";
 
 
 function App() {
   return (
-    <Router>
-      <Routes>
-        <Route path="/" element={<Layout />}>
-          {/* Default route inside Layout */}
-          <Route index element={<LoginPage />} />
-          {/* Example other page */}
-          <Route path="home" element={<HomePage />} />
-        </Route>
-      </Routes>
-    </Router>
+    <>
+      <Router>
+        <Routes>
+          <Route path="/" element={<Layout />}>
+            {/* Default route inside Layout */}
+            <Route index element={<LoginPage />} />
+            {/* Example other page */}
+            <Route path="home" element={<HomePage />} />
+          </Route>
+        </Routes>
+      </Router>
+    </>
+
   );
 }
 
