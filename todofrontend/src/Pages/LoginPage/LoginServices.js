@@ -1,9 +1,11 @@
 import { toast } from "react-toastify";
+import { postService } from "../../ApiServices/PostApiService";
+import { ENDPOINTS } from "../../utils";
 // import { RegisterRequest, LoginRequest } from "./LoginModals";
 
-export const registerUserService = (requestBody) => {
+export const registerUserService = async (requestBody) => {
     try {
-
+        const response = await postService(`${ENDPOINTS.USER + ENDPOINTS.REGISTER}`,requestBody) 
     } catch (error) {
         toast.error(error.message ? error.message : "Something went wrong")
     }
