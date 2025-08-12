@@ -20,39 +20,52 @@ const LoginPage = () => {
       .min(6, "Password must be at least 6 characters")
       .required("Password is required"),
   }));
-  const handleSubmit = ()=>{
+  const handleSubmit = () => {
 
   }
 
 
   return (
     <div className='flex flex-col justify-center items-center'>
-      <h2>
+      <h1 className='text-3xl my-10 font-bold tracking-wider'>
         {registerPage ? "Register" : "Login"}
-      </h2>
+      </h1>
 
       <Formik
         initialValues={initialState}
         validationSchema={validationSchema}
         enableReinitialize
       >
-        <Form>
-<div>
-          <label>Name:</label>
-          <Field name="name" className="border p-1" />
-          <ErrorMessage name="name" component="div" className="text-red-500" />
-        </div>
-        <div>
-          <label>Email:</label>
-          <Field name="email" className="border p-1" />
-          <ErrorMessage name="email" component="div" className="text-red-500" />
-        </div>
-        <div>
-          <label>Password:</label>
-          <Field name="password" className="border p-1" />
-          <ErrorMessage name="password" component="div" className="text-red-500" />
-        </div>
-        <Button text={"Register"} click={handleSubmit}/>
+        <Form className='w-[40%]'>
+          <div className='flex flex-col mb-8'>
+            <label>Name:</label>
+            <Field name="name" className="border p-1" />
+            <ErrorMessage name="name" component="div" className="text-red-500" />
+          </div>
+          <div className='flex flex-col mb-8'>
+            <label>Email:</label>
+            <Field name="email" className="border p-1" />
+            <ErrorMessage name="email" component="div" className="text-red-500" />
+          </div>
+          <div className='flex flex-col mb-8'>
+            <label>Password:</label>
+            <Field name="password" className="border p-1" />
+            <ErrorMessage name="password" component="div" className="text-red-500" />
+          </div>
+          <div className='w-[100%]'>
+            <Button text={"Register"} click={handleSubmit} style={{
+              backgroundColor: "white",
+              color: "black",
+              padding: "10px",
+              width: "100%",
+              border: "none",
+              borderRadius: "5px",
+              cursor: "pointer",
+              display: "flex",
+              textAlign: "center"
+            }} />
+          </div>
+
         </Form>
       </Formik>
     </div>
