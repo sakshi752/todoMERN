@@ -2,17 +2,17 @@ import React, { useState } from 'react'
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import * as Yup from 'yup';
 import Button from '../../Components/Button';
+import { loginUserService, registerUserService } from './LoginServices';
 
 const LoginPage = () => {
-  const [registerPage, setRegisterPage] = useState(true);
+  const [registerPage, setRegisterPage] = useState(false);
   const [initialState, setInitialState] = useState({
     name: "",
     email: "",
     password: ""
   })
+  
   const [validationSchema, setValidationSchema] = useState(Yup.object({
-    name: Yup.string().min(3, "Must be at least 3 characters")
-      .required("Name is required"),
     email: Yup.string()
       .email("Invalid email format")
       .required("Email is required"),
@@ -20,8 +20,17 @@ const LoginPage = () => {
       .min(6, "Password must be at least 6 characters")
       .required("Password is required"),
   }));
-  const handleSubmit = () => {
 
+  const handleSubmit = (values) => {
+    const requestBody = registerPage ? {
+      email: values.email,
+      password: values.password,
+      name: values.name
+    } : {
+      email: values.email,
+      password: values.password,
+    }
+    registerPage ? registerUserService(requestBody) : loginUserService(requestBody)
   }
 
 
@@ -35,13 +44,15 @@ const LoginPage = () => {
         initialValues={initialState}
         validationSchema={validationSchema}
         enableReinitialize
+        onSubmit={handleSubmit}
       >
         <Form className='w-[40%]'>
-          <div className='flex flex-col mb-8'>
+          {registerPage && <div className='flex flex-col mb-8'>
             <label>Name:</label>
             <Field name="name" className="border p-1" />
             <ErrorMessage name="name" component="div" className="text-red-500" />
-          </div>
+          </div>}
+
           <div className='flex flex-col mb-8'>
             <label>Email:</label>
             <Field name="email" className="border p-1" />
@@ -52,8 +63,8 @@ const LoginPage = () => {
             <Field name="password" className="border p-1" />
             <ErrorMessage name="password" component="div" className="text-red-500" />
           </div>
-          <div className='w-[100%]'>
-            <Button text={"Register"} click={handleSubmit} style={{
+          <div className='w-[100%] mb-8'>
+            <Button text={registerPage ? "Register" : "Login"} style={{
               backgroundColor: "white",
               color: "black",
               padding: "10px",
@@ -65,7 +76,15 @@ const LoginPage = () => {
               textAlign: "center"
             }} />
           </div>
+          <div className='cursor-pointer' onClick={() => setRegisterPage(!registerPage)}>
+            <p>
+              {registerPage ? "Already have an account?" : "Don't have an account?"}
+              <span className="text-red-500 cursor-pointer pl-2">
+                {registerPage ? "Login now" : "Register now"}
+              </span>
 
+            </p>
+          </div>
         </Form>
       </Formik>
     </div>
