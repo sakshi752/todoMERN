@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import * as Yup from 'yup';
 import Button from '../../Components/Button';
@@ -11,7 +11,8 @@ const LoginPage = () => {
     email: "",
     password: ""
   })
-  
+
+
   const [validationSchema, setValidationSchema] = useState(Yup.object({
     email: Yup.string()
       .email("Invalid email format")
@@ -74,19 +75,27 @@ const LoginPage = () => {
               cursor: "pointer",
               display: "flex",
               textAlign: "center"
-            }} />
-          </div>
-          <div className='cursor-pointer' onClick={() => setRegisterPage(!registerPage)}>
-            <p>
-              {registerPage ? "Already have an account?" : "Don't have an account?"}
-              <span className="text-red-500 cursor-pointer pl-2">
-                {registerPage ? "Login now" : "Register now"}
-              </span>
-
-            </p>
+            }} type={"button"} />
           </div>
         </Form>
       </Formik>
+      
+      <button type='button' className='cursor-pointer' onClick={() => {
+        setRegisterPage(!registerPage)
+        setInitialState({
+          name: "",
+          email: "",
+          password: ""
+        })
+      }}>
+        <p>
+          {registerPage ? "Already have an account?" : "Don't have an account?"}
+          <span className="text-red-500 cursor-pointer pl-2">
+            {registerPage ? "Login now" : "Register now"}
+          </span>
+
+        </p>
+      </button>
     </div>
   )
 }
