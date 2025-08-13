@@ -4,7 +4,7 @@ import HomePage from "./Pages/HomePage/HomePage";
 import Layout from "./Components/Layout";
 import React from 'react';
 import { ToastContainer } from "react-toastify";
-
+import "react-toastify/dist/ReactToastify.css";
 
 function App() {
   return (
@@ -19,8 +19,20 @@ function App() {
           </Route>
         </Routes>
       </Router>
-    </>
 
+      {/* Toast container is global — should be outside Router */}
+      <ToastContainer 
+        position="top-right"
+        autoClose={3000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+        theme="light" // or "dark"
+      />
+    </>
   );
 }
 
