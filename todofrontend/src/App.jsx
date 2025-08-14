@@ -5,8 +5,12 @@ import Layout from "./Components/Layout";
 import React from 'react';
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import { useSelector } from "react-redux";
 
 function App() {
+  const { user, token } = useSelector((state) => state.auth);
+  console.log("token ",token);
+  
   return (
     <>
       <Router>

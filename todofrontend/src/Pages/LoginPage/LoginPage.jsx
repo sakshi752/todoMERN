@@ -3,6 +3,7 @@ import { Formik, Form, Field, ErrorMessage } from "formik";
 import * as Yup from 'yup';
 import Button from '../../Components/Button';
 import { loginUserService, registerUserService } from './LoginServices';
+import { useDispatch } from 'react-redux';
 
 const LoginPage = () => {
   const [registerPage, setRegisterPage] = useState(false);
@@ -22,7 +23,11 @@ const LoginPage = () => {
       .required("Password is required"),
   }));
 
+  const dispatch = useDispatch();
+
   const handleSubmit = (values) => {
+    console.log("heyo");
+    
     const requestBody = registerPage ? {
       email: values.email,
       password: values.password,
@@ -31,7 +36,7 @@ const LoginPage = () => {
       email: values.email,
       password: values.password,
     }
-    registerPage ? registerUserService(requestBody) : loginUserService(requestBody)
+    registerPage ? registerUserService(requestBody,dispatch) : loginUserService(requestBody,dispatch)
   }
 
 
@@ -75,7 +80,7 @@ const LoginPage = () => {
               cursor: "pointer",
               display: "flex",
               textAlign: "center"
-            }} type={"button"} />
+            }} type={"submit"} />
           </div>
         </Form>
       </Formik>
