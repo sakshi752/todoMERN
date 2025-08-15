@@ -1,17 +1,18 @@
 const initialState = {
     user: null,
-    token:"dasd"
+    token: null
 }
 
-export  const authReducer = (state = initialState, action) => {
+export const authReducer = (state = initialState, action) => {
     switch (action.type) {
         case "LOGIN":
             return {
-                ...state, // keep other properties unchanged
-                user: action.payload.user,   // store the user data
-                token: action.payload.token   // store the token
+                user: action.payload.user ?? state.user,
+                token: action.payload.token ?? state.token,
             };
+        case "LOGOUT":
+            return initialState; 
         default:
-            return state
+            return state;
     }
 }

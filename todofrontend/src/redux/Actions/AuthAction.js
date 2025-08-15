@@ -1,8 +1,8 @@
 export const logedIn = (user, token) => ({
-    type:"LOGIN",
-    payload:{user, token}
+    type: "LOGIN",
+    payload: { user, token }
 })
 
-export const logedOut = () =>({
-
+export const logedOut = () => ({
+    type: "LOGOUT"
 })

@@ -9,6 +9,7 @@ import { useSelector } from "react-redux";
 
 function App() {
   const { user, token } = useSelector((state) => state.auth);
+  console.log("user ",user);
   console.log("token ",token);
   
   return (
@@ -17,9 +18,9 @@ function App() {
         <Routes>
           <Route path="/" element={<Layout />}>
             {/* Default route inside Layout */}
-            <Route index element={<LoginPage />} />
+            <Route index element={token?<HomePage/> :<LoginPage />} />
             {/* Example other page */}
-            <Route path="home" element={<HomePage />} />
+            
           </Route>
         </Routes>
       </Router>
