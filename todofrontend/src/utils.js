@@ -3,5 +3,5 @@ export const ENDPOINTS = {
     LOGIN: "/login",
     REGISTER: "/register",
     USER: "user",
-    TODO: "todo"
+    TODOS: "todos"
 }

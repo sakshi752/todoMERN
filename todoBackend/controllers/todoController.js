@@ -15,11 +15,12 @@ export const getTodos = async (req, res) => {
 }
 
 export const addTodo = async (req, res) => {
-    const { todoTitle, isParent, parentTodo } = req.body;
+    const {todo ,description } = req.body;
 
     try {
         const newTodo = new Todo({
-            todoTitle, isParent, parentTodo
+            todo,
+            description
         })
         await newTodo.save();
         res.status(200).json({

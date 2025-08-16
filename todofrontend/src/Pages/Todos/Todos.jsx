@@ -2,7 +2,7 @@ import { Formik, Form, Field, ErrorMessage } from "formik";
 import * as Yup from 'yup';
 import React, { useState } from 'react'
 import Button from "../../Components/Button";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { addTodo } from "./TodoService";
 
 const Todos = () => {
@@ -10,6 +10,7 @@ const Todos = () => {
         todo: "",
         description: ""
     });
+    const { user, token } = useSelector((state) => state.auth);
     const [validationSchema, setValidationSchema] = useState(Yup.object({
         todo: Yup.string().required("Todo field is required"),
     }));
@@ -20,7 +21,7 @@ const Todos = () => {
             todo: values.todo,
             description: values.description
         }
-        addTodo(requestBody,dispatch);
+        addTodo(requestBody,dispatch,token);
     }
 
     return (
