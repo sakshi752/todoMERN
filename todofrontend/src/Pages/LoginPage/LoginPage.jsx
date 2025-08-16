@@ -35,11 +35,6 @@ const LoginPage = () => {
       password: values.password,
     }
     registerPage ? registerUserService(requestBody, dispatch) : loginUserService(requestBody, dispatch)
-    setInitialState({
-      name: "",
-      email: "",
-      password: ""
-    })
   }
 
 
