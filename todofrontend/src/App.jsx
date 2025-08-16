@@ -6,27 +6,26 @@ import React from 'react';
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { useSelector } from "react-redux";
+import Todos from "./Pages/Todos/Todos";
 
 function App() {
   const { user, token } = useSelector((state) => state.auth);
-  console.log("user ",user);
-  console.log("token ",token);
   
   return (
     <>
       <Router>
         <Routes>
           <Route path="/" element={<Layout />}>
-            {/* Default route inside Layout */}
             <Route index element={token?<HomePage/> :<LoginPage />} />
-            {/* Example other page */}
+            {token && <>
+            <Route path="/todos" element={<Todos/>}/>
+            </>}
             
           </Route>
         </Routes>
       </Router>
 
-      {/* Toast container is global — should be outside Router */}
-      <ToastContainer 
+     <ToastContainer 
         position="top-right"
         autoClose={3000}
         hideProgressBar={false}

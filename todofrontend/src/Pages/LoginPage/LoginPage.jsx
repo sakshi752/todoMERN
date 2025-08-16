@@ -26,8 +26,6 @@ const LoginPage = () => {
   const dispatch = useDispatch();
 
   const handleSubmit = (values) => {
-    console.log("heyo");
-    
     const requestBody = registerPage ? {
       email: values.email,
       password: values.password,
@@ -36,7 +34,12 @@ const LoginPage = () => {
       email: values.email,
       password: values.password,
     }
-    registerPage ? registerUserService(requestBody,dispatch) : loginUserService(requestBody,dispatch)
+    registerPage ? registerUserService(requestBody, dispatch) : loginUserService(requestBody, dispatch)
+    setInitialState({
+      name: "",
+      email: "",
+      password: ""
+    })
   }
 
 
@@ -84,7 +87,7 @@ const LoginPage = () => {
           </div>
         </Form>
       </Formik>
-      
+
       <button type='button' className='cursor-pointer' onClick={() => {
         setRegisterPage(!registerPage)
         setInitialState({
