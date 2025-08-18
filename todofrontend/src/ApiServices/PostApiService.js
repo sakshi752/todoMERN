@@ -1,7 +1,7 @@
 import { toast } from "react-toastify";
 import { BASE_URL } from "../utils";
 
-export const postService = async (endpoint, body = {}, headers = {},token) => {
+export const postService = async (endpoint, body = {},token, headers = {}) => {
     try {
         const response = await fetch(`${BASE_URL}${endpoint}`, {
             method: 'POST',
