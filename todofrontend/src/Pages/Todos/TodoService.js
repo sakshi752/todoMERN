@@ -1,6 +1,24 @@
+import { getService } from "../../ApiServices/GetApiService";
 import { postService } from "../../ApiServices/PostApiService";
+import { TodoAction } from "../../redux/Actions/TodoAction/TodoAction";
 import { ENDPOINTS } from "../../utils";
 import { toast } from "react-toastify";
+
+export const getTodos = async (requestBody,dispatch,token)=>{
+    try {
+        const response = await getService(`${ENDPOINTS.TODOS}`,{},token)
+        const data = await response.json();
+        console.log("data ",data.data);
+        
+        if (response.status === 200 ) {
+            dispatch(TodoAction(data.data))
+        }
+    } catch (error) {
+        console.log("err ",error);
+        
+          toast.error("Internal server error!")
+    }
+}
 
 export const addTodo = async (requestBody, dispatch,token) => {
     try {

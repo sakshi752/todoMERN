@@ -23,6 +23,8 @@ export const loginUserService = async (requestBody,dispatch) => {
     try {
         const response = await postService(`${ENDPOINTS.USER + ENDPOINTS.LOGIN}`, requestBody);
         const data = await response.json();
+        console.log("data ",data);
+        
         if (response.status === 200) {
             toast.success(data.message ? data.message : "You are logged in!")
             dispatch(logedIn(data.user,data.token))
@@ -30,6 +32,7 @@ export const loginUserService = async (requestBody,dispatch) => {
             toast.error(data.message ? data.message : "Something went wrong!")
         }
     } catch (error) {
+
         toast.error("Internal server error!")
     }
 };

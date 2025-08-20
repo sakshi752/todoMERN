@@ -1,21 +1,16 @@
 import { BASE_URL } from "../utils";
 
-export const getData = async (endpoint, headers = {}) => {
+export const getService = async (endpoint, body = {},token,headers = {}) => {
     try {
-        const response = await fetch(`${BASE_URL}/${endpoint}`, {
+        const response = await fetch(`${BASE_URL}${endpoint}`, {
             method: 'GET',
             headers: {
                 'Content-Type': 'application/json',
-                ...headers,
+                ...(token && { Authorization: `Bearer ${token}` }),
             }
         });
 
-        if (!response.ok) {
-            throw new Error(`HTTP error! status: ${response.status}`);
-        }
-
-        const data = await response.json();
-        return data;
+        return response;
 
     } catch (error) {
         console.error("Internal server error");
