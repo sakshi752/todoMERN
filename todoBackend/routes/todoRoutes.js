@@ -1,5 +1,5 @@
 import express from "express";
-import { addTodo, getTodos } from "../controllers/todoController.js";
+import { addTodo, deleteTodo, getTodos } from "../controllers/todoController.js";
 
 
 const router = express.Router();
@@ -8,6 +8,8 @@ const router = express.Router();
 router.get("/", getTodos);
 // api to add a new todo
 router.post("/", addTodo);
+
+router.delete("/",deleteTodo)
 
 export default router;
 

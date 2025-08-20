@@ -33,6 +33,9 @@ const Todos = () => {
     const getTodoList =async ()=>{
         getTodos({},dispatch,token)
     }
+    const onDelete = ()=>{
+        
+    }
 
     const handleSubmit = (values, { resetForm }) => {
         const requestBody = {

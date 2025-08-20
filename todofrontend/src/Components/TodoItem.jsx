@@ -2,9 +2,9 @@ import React from "react";
 
 const TodoItem = ({ todo, onDelete , onEdit }) => {
   return (
-    <div className="flex items-center justify-between p-3 bg-white shadow-sm rounded-lg mb-2 text-black">
+    <div className="grid grid-cols-3 p-3 bg-white shadow-sm rounded-lg mb-2 text-black">
       {/* Left Section - Checkbox + Text */}
-      <div className="flex items-center gap-3">
+      <div className="flex items-center ">
         <span
           className={`text-gray-800 text-base ${
             todo.completed ? "line-through text-gray-400" : ""

@@ -33,14 +33,17 @@ export const addTodo = async (req, res) => {
     }
 }
 
-// export const deleteTodo = async (req, res) => {
-//     const { id } = req.params;
-//     try {
-//         const deleteTodo = await Todo.findByIdAndDelete(id)
+export const deleteTodo = async (req, res) => {
+    const { id } = req.params;
+    try {
+        const deleteTodo = await Todo.findByIdAndDelete(id)
+        res.status(200).json({
+            message:"todo deleted successfully"
+        })
 
-//     } catch (error) {
-//         res.status(500).json({
-//             message: error.message
-//         })
-//     }
-// }
+    } catch (error) {
+        res.status(500).json({
+            message: error.message
+        })
+    }
+}
