@@ -3,7 +3,7 @@ import * as Yup from 'yup';
 import React, { useEffect, useState } from 'react';
 import Button from "../../Components/Button";
 import { useDispatch, useSelector } from "react-redux";
-import { addTodo, getTodos } from "./TodoService";
+import { addTodo, deleteTodo, getTodos } from "./TodoService";
 import { IoCloseSharp } from "react-icons/io5";
 import TodoItem from "../../Components/TodoItem";
 
@@ -33,8 +33,8 @@ const Todos = () => {
     const getTodoList =async ()=>{
         getTodos({},dispatch,token)
     }
-    const onDelete = ()=>{
-        
+    const onDelete = (id)=>{
+        deleteTodo(id,token)
     }
 
     const handleSubmit = (values, { resetForm }) => {
@@ -64,7 +64,7 @@ const Todos = () => {
             />
             <div>
                 {todos.map((todo)=><>
-                <TodoItem key={todo._id} todo={todo}/>
+                <TodoItem key={todo._id} todo={todo} onDelete={onDelete}/>
                 </>)}
             </div>
             {modal &&

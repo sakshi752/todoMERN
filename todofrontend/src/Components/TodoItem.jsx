@@ -23,7 +23,7 @@ const TodoItem = ({ todo, onDelete , onEdit }) => {
           Edit
         </button>
         <button
-        //   onClick={() => onDelete(todo.id)}
+          onClick={() => onDelete(todo._id)}
           className="text-red-500 hover:text-red-700 text-sm font-medium"
         >
           Delete

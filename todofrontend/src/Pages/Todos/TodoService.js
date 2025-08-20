@@ -1,3 +1,4 @@
+import { deleteService } from "../../ApiServices/DeleteApiService";
 import { getService } from "../../ApiServices/GetApiService";
 import { postService } from "../../ApiServices/PostApiService";
 import { TodoAction } from "../../redux/Actions/TodoAction/TodoAction";
@@ -8,7 +9,6 @@ export const getTodos = async (requestBody, dispatch, token) => {
     try {
         const response = await getService(`${ENDPOINTS.TODOS}`, {}, token)
         const data = await response.json();
-        console.log("data ", data.data);
 
         if (response.status === 200) {
             dispatch(TodoAction(data.data))
@@ -35,12 +35,20 @@ export const addTodo = async (requestBody, dispatch, token) => {
     }
 }
 
-export const deleteTodo = async (reuqestBody, dispatch, token) => {
-    try {
+export const deleteTodo = async (todoId, token) => {
+  try {
+    // pass todoId in URL params
+    const response = await deleteService(`${ENDPOINTS.TODOS}/${todoId}`, token);
 
-    } catch (error) {
-        toast.error(error ? error : "Internal server error!")
+    const data = await response.json();
+
+    if (response.status === 200) {
+      toast.success("Todo deleted successfully!");
     }
-}
+  } catch (error) {
+    toast.error(error ? error : "Internal server error!");
+  }
+};
+
 
 export const editTodo = async (reuqestBody, dispatch) => { } 

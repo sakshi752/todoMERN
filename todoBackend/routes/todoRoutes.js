@@ -9,7 +9,7 @@ router.get("/", getTodos);
 // api to add a new todo
 router.post("/", addTodo);
 
-router.delete("/",deleteTodo)
+router.delete("/:id",deleteTodo)
 
 export default router;
 
