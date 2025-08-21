@@ -55,8 +55,7 @@ export const editTodo = async (req, res) => {
     try {
         const updatedTodo = await Todo.findByIdAndUpdate(
             id,
-            { todo, description },
-            { new: true }
+            { todo, description }
         );
 
         if (!updatedTodo) {
