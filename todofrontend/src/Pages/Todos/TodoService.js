@@ -41,7 +41,7 @@ export const deleteTodo = async (todoId, token) => {
     const response = await deleteService(`${ENDPOINTS.TODOS}/${todoId}`, token);
 
     const data = await response.json();
-
+    
     if (response.status === 200) {
       toast.success("Todo deleted successfully!");
     }

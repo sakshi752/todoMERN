@@ -1,36 +1,38 @@
 import React from "react";
+import { MdDelete, MdEdit } from "react-icons/md";
 
-const TodoItem = ({ todo, onDelete , onEdit }) => {
-  return (
-    <div className="grid grid-cols-3 p-3 bg-white shadow-sm rounded-lg mb-2 text-black">
-      {/* Left Section - Checkbox + Text */}
-      <div className="flex items-center ">
-        <span
-          className={`text-gray-800 text-base ${
-            todo.completed ? "line-through text-gray-400" : ""
-          }`}
-        >
-          {todo.todo}
-        </span>
-      </div>
+const TodoItem = ({ todo, onDelete, onEdit }) => {
+    return (
+        <div className="flex flex-col p-3 bg-white shadow-sm rounded-lg mb-2 text-black">
+            <div className="flex items-center border-b-1 mb-2">
+                <span
+                    className={`text-gray-800 font-extrabold tracking-wide text-xl`}
+                >
+                    {todo.todo}
+                </span>
+            </div>
+            <div className="flex items-center justify-between">
+                <div>
+                    <p>{todo.description}</p>
+                </div>
+                <div className="flex items-center">
+                    <button
+                          onClick={() => onEdit(todo)}
+                        className="text-blue-500 hover:text-blue-700 text-xl pr-2"
+                    >
+                        <MdEdit />
+                    </button>
+                    <button
+                        onClick={() => onDelete(todo._id)}
+                        className="text-red-500 hover:text-red-700 text-xl pr-2"
+                    >
+                        <MdDelete />
+                    </button>
+                </div>
+            </div>
 
-      {/* Right Section - Actions */}
-      <div className="flex items-center gap-3">
-        <button
-        //   onClick={() => onEdit(todo.id)}
-          className="text-blue-500 hover:text-blue-700 text-sm font-medium"
-        >
-          Edit
-        </button>
-        <button
-          onClick={() => onDelete(todo._id)}
-          className="text-red-500 hover:text-red-700 text-sm font-medium"
-        >
-          Delete
-        </button>
-      </div>
-    </div>
-  );
+        </div>
+    );
 };
 
 export default TodoItem;

@@ -11,6 +11,7 @@ export const deleteService = async (endpoint, token) => {
                 ...(token && { Authorization: `Bearer ${token}` }),
             }
         })
+        return response
 
     } catch (error) {
         console.error(error ? error : "Internal server error");

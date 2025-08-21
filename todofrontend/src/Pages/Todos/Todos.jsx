@@ -22,29 +22,44 @@ const Todos = () => {
     const { token } = useSelector((state) => state.auth);
     const todos = useSelector((state) => state.todos.data);
     const dispatch = useDispatch();
-    
+    const [formType, setFormType] = useState("Add")
 
-    useEffect(()=>{
+
+    useEffect(() => {
         if (todoList.length === 0) {
             getTodoList()
+        } else {
+            const todoData = todos.data;
+            setTodoList(todoData)
         }
-    },[]);
+    }, []);
 
-    const getTodoList =async ()=>{
-        getTodos({},dispatch,token)
+    const getTodoList = async () => {
+        getTodos({}, dispatch, token)
     }
-    const onDelete = (id)=>{
-        deleteTodo(id,token)
+    const onDelete = async (id) => {
+        await deleteTodo(id, token)
+        getTodoList()
     }
 
-    const handleSubmit = (values, { resetForm }) => {
+    const onEdit = async (todo) => {
+        setInitialState({
+            todo: todo.todo,
+            description: todo.description
+        })
+        setFormType("Edit")
+        setModal(true)
+    }
+
+    const handleSubmit = async (values, { resetForm }) => {
         const requestBody = {
             todo: values.todo,
             description: values.description,
         };
-        addTodo(requestBody, dispatch, token);
+        await addTodo(requestBody, dispatch, token);
         resetForm();
-        setModal(false)
+        setModal(false);
+        getTodoList()
     };
 
     return (
@@ -62,17 +77,19 @@ const Todos = () => {
                 }}
                 click={() => setModal(true)}
             />
-            <div>
-                {todos.map((todo)=><>
-                <TodoItem key={todo._id} todo={todo} onDelete={onDelete}/>
-                </>)}
+            <div className="grid grid-cols-3 gap-4">
+                {todos.length > 0 ? todos.map((todo) => <>
+                    <TodoItem key={todo._id} todo={todo} onDelete={onDelete} onEdit={onEdit} />
+                </>) : <>
+                    <p>Todo list is empty</p>
+                </>}
             </div>
             {modal &&
                 <div className="fixed inset-0 bg-black bg-opacity-10 flex items-center justify-center z-50">
                     <div className="w-full max-w-md bg-white shadow-lg rounded-2xl p-8 text-black">
                         <div className="flex justify-between items-center">
                             <h2 className="text-2xl font-semibold text-gray-800 mb-6 text-center">
-                                Add New Todo
+                                {formType === "Add" ? "Add New Todo" : "Edit Todo"}
                             </h2>
                             <IoCloseSharp className="text-xl cursor-pointer" onClick={() => setModal(false)} />
                         </div>
@@ -116,7 +133,7 @@ const Todos = () => {
 
                                 {/* Submit Button */}
                                 <div className="flex justify-center">
-                                    <Button text={"Add"} type={"submit"} style={{
+                                    <Button text={formType === "Add" ? "Add" : "Edit"} type={"submit"} style={{
                                         backgroundColor: "#020926",
                                         color: "white",
                                         padding: "10px",

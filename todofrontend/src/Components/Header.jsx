@@ -2,15 +2,18 @@ import React from 'react'
 import { useDispatch, useSelector } from 'react-redux';
 import Button from './Button';
 import { logedOut } from '../redux/Actions/AuthAction';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { toast } from "react-toastify";
 
 const Header = () => {
   const { user, token } = useSelector((state) => state.auth);
-  const dispatch = useDispatch()
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+
   const handleLogout = () => {
     dispatch(logedOut());
     toast.success("You are logged out successfully!")
+    navigate("/")
   }
   return (
     <div className='flex justify-between'>
