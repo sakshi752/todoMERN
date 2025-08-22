@@ -3,14 +3,15 @@ import * as Yup from 'yup';
 import React, { useEffect, useState } from 'react';
 import Button from "../../Components/Button";
 import { useDispatch, useSelector } from "react-redux";
-import { addTodo, deleteTodo, getTodos } from "./TodoService";
+import { addTodo, deleteTodo, editTodo, getTodos } from "./TodoService";
 import { IoCloseSharp } from "react-icons/io5";
 import TodoItem from "../../Components/TodoItem";
 
 const Todos = () => {
     const [initialState, setInitialState] = useState({
         todo: "",
-        description: ""
+        description: "",
+        id: ""
     });
     const [validationSchema] = useState(
         Yup.object({
@@ -44,6 +45,7 @@ const Todos = () => {
 
     const onEdit = async (todo) => {
         setInitialState({
+            id: todo._id,
             todo: todo.todo,
             description: todo.description
         })
@@ -53,10 +55,16 @@ const Todos = () => {
 
     const handleSubmit = async (values, { resetForm }) => {
         const requestBody = {
+            ...(values.id && values.id !== "" && { id: values.id }),
             todo: values.todo,
             description: values.description,
         };
-        await addTodo(requestBody, dispatch, token);
+        if (formType === "Add") {
+            await addTodo(requestBody, dispatch, token);
+        } else {
+            await editTodo(requestBody, dispatch, token)
+        }
+
         resetForm();
         setModal(false);
         getTodoList()
