@@ -8,6 +8,7 @@ import { IoCloseSharp } from "react-icons/io5";
 import TodoItem from "../../Components/TodoItem";
 
 const Todos = () => {
+    const { user } = useSelector((state) => state.auth);
     const [initialState, setInitialState] = useState({
         todo: "",
         description: "",
@@ -23,8 +24,7 @@ const Todos = () => {
     const { token } = useSelector((state) => state.auth);
     const todos = useSelector((state) => state.todos.data);
     const dispatch = useDispatch();
-    const [formType, setFormType] = useState("Add")
-
+    const [formType, setFormType] = useState("Add");
 
     useEffect(() => {
         if (todoList.length === 0) {
@@ -36,7 +36,7 @@ const Todos = () => {
     }, []);
 
     const getTodoList = async () => {
-        getTodos({}, dispatch, token)
+        getTodos( dispatch, token,user.id)
     }
     const onDelete = async (id) => {
         await deleteTodo(id, token)
@@ -55,14 +55,13 @@ const Todos = () => {
 
     const handleSubmit = async (values, { resetForm }) => {
         const requestBody = {
-            ...(values.id && values.id !== "" && { id: values.id }),
             todo: values.todo,
             description: values.description,
         };
         if (formType === "Add") {
             await addTodo(requestBody, dispatch, token);
         } else {
-            await editTodo(requestBody, dispatch, token)
+            await editTodo(requestBody, dispatch, token,values.id)
         }
 
         resetForm();
@@ -86,7 +85,7 @@ const Todos = () => {
                 click={() => setModal(true)}
             />
             <div className="grid grid-cols-3 gap-4">
-                {todos.length > 0 ? todos.map((todo) => <>
+                {todos && todos.length > 0 ? todos.map((todo) => <>
                     <TodoItem key={todo._id} todo={todo} onDelete={onDelete} onEdit={onEdit} />
                 </>) : <>
                     <p>Todo list is empty</p>

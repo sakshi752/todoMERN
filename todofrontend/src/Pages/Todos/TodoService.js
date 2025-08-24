@@ -6,9 +6,9 @@ import { TodoAction } from "../../redux/Actions/TodoAction/TodoAction";
 import { ENDPOINTS } from "../../utils";
 import { toast } from "react-toastify";
 
-export const getTodos = async (requestBody, dispatch, token) => {
+export const getTodos = async (dispatch, token, id) => {
     try {
-        const response = await getService(`${ENDPOINTS.TODOS}`, {}, token)
+        const response = await getService(`${ENDPOINTS.TODOS}/${id}`, token)
         const data = await response.json();
 
         if (response.status === 200) {
@@ -52,9 +52,9 @@ export const deleteTodo = async (todoId, token) => {
 };
 
 
-export const editTodo = async (reuqestBody, dispatch, token) => {
+export const editTodo = async (reuqestBody, dispatch, token, id) => {
     try {
-         const response = await putService(`${ENDPOINTS.TODOS}`, requestBody, token);
+        const response = await putService(`${ENDPOINTS.TODOS}/${id}`, reuqestBody, token);
         const data = await response.json();
         if (response.status === 200 || data.message === "success") {
             toast.success(data.message ? data.message : "Todo is edited successfully!")

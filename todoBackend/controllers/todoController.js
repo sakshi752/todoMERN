@@ -1,8 +1,12 @@
 import Todo from "../models/Todo.js";
 
 export const getTodos = async (req, res) => {
+    const { id } = req.params;
+
+
     try {
-        const todos = await Todo.find();
+        const todos = await Todo.find({ user: id });
+
         res.status(200).json({
             data: todos,
             message: "success"
@@ -16,12 +20,16 @@ export const getTodos = async (req, res) => {
 
 export const addTodo = async (req, res) => {
     const { todo, description } = req.body;
+    const userId = req.user.id;
 
     try {
         const newTodo = new Todo({
             todo,
-            description
+            description,
+            user: userId
+
         })
+
         await newTodo.save();
         res.status(200).json({
             message: "todo added successfully"
@@ -52,10 +60,13 @@ export const deleteTodo = async (req, res) => {
 export const editTodo = async (req, res) => {
     const { id } = req.params;
     const { todo, description } = req.body;
+
     try {
         const updatedTodo = await Todo.findByIdAndUpdate(
             id,
-            { todo, description }
+            {
+                todo, description
+            }
         );
 
         if (!updatedTodo) {

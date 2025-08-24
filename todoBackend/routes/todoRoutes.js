@@ -5,7 +5,7 @@ import { addTodo, deleteTodo, editTodo, getTodos } from "../controllers/todoCont
 const router = express.Router();
 
 // api to get todo list
-router.get("/", getTodos);
+router.get("/:id", getTodos);
 // api to add a new todo
 router.post("/", addTodo);
 

@@ -1,6 +1,6 @@
 import { BASE_URL } from "../utils";
 
-export const getService = async (endpoint, body = {},token,headers = {}) => {
+export const getService = async (endpoint, token) => {
     try {
         const response = await fetch(`${BASE_URL}${endpoint}`, {
             method: 'GET',
