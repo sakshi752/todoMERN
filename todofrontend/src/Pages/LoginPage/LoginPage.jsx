@@ -25,7 +25,7 @@ const LoginPage = () => {
 
   const dispatch = useDispatch();
 
-  const handleSubmit = (values) => {
+  const handleSubmit = (values,{ resetForm }) => {
     const requestBody = registerPage ? {
       email: values.email,
       password: values.password,
@@ -34,7 +34,8 @@ const LoginPage = () => {
       email: values.email,
       password: values.password,
     }
-    registerPage ? registerUserService(requestBody, dispatch) : loginUserService(requestBody, dispatch)
+    registerPage ? registerUserService(requestBody, dispatch) : loginUserService(requestBody, dispatch);
+    resetForm();
   }
 
 
