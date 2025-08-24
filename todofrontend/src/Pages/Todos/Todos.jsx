@@ -36,7 +36,7 @@ const Todos = () => {
     }, []);
 
     const getTodoList = async () => {
-        getTodos( dispatch, token,user.id)
+        getTodos(dispatch, token, user.id)
     }
     const onDelete = async (id) => {
         await deleteTodo(id, token)
@@ -61,7 +61,7 @@ const Todos = () => {
         if (formType === "Add") {
             await addTodo(requestBody, dispatch, token);
         } else {
-            await editTodo(requestBody, dispatch, token,values.id)
+            await editTodo(requestBody, dispatch, token, values.id)
         }
 
         resetForm();
@@ -82,7 +82,15 @@ const Todos = () => {
                     borderRadius: "8px",
                     cursor: "pointer"
                 }}
-                click={() => setModal(true)}
+                click={() => {
+                    setModal(true);
+                    setFormType("Add");
+                    setInitialState({
+                        todo: "",
+                        description: "",
+                        id: ""
+                    })
+                }}
             />
             <div className="grid grid-cols-3 gap-4">
                 {todos && todos.length > 0 ? todos.map((todo) => <>
